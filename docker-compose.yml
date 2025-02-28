@@ -37,24 +37,24 @@ services:
         tty: true
         networks:
             - app-network
-    dotnet-app:  # Nuevo servicio .NET 9
+    dotnet-app:
         build:
-            context: ./dotnet/LedgerSyncAPI/
-            dockerfile: Dockerfile
+            context: ./dotnet/LedgerSyncAPI
+            dockerfile: Dockerfile.dev
         ports:
-            - 5000:8080  # Expón el puerto de .NET
+            - 5000:8080
             - 5001:443
+        volumes:
+            - ./dotnet/LedgerSyncAPI:/app  # Asegurar misma estructura
+            - ~/.nuget/packages:/root/.nuget/packages:ro  # Cache de paquetes
         environment:
             ASPNETCORE_ENVIRONMENT: "Development"
-            DB_HOST: "mariadb"  # Variables para la DB (si las necesitas)
+            DB_HOST: "mariadb"
             DB_NAME: "testdb"
             DB_USER: "testuser"
             DB_PASSWORD: "testpassword"
         depends_on:
             - mariadb
-            - php-apache
-        links:
-            - 'mariadb:database'
         networks:
             - app-network
 networks:

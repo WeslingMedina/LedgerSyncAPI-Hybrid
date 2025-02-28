@@ -27,7 +27,8 @@ namespace Infrastructure.Repositories
                 Revoked TIMESTAMP NULL,
                 RevokedByIp VARCHAR(45) NULL,
                 ReplacedByToken VARCHAR(88) NULL,
-                UserId INT NOT NULL REFERENCES Users(Id)
+                UserId BIGINT(20) UNSIGNED NOT NULL,
+                FOREIGN KEY (UserId) REFERENCES UsersNET(Id)
             )");
         }
 

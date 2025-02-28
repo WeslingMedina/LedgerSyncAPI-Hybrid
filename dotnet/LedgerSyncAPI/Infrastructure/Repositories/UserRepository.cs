@@ -19,7 +19,7 @@ namespace Infrastructure.Repositories
             using var connection = _dbConnectionFactory.CreateConnection();
 
             await connection.ExecuteAsync(@"
-            CREATE TABLE IF NOT EXISTS Users (
+            CREATE TABLE IF NOT EXISTS UsersNET (
                 Id SERIAL PRIMARY KEY,
                 FullName VARCHAR(100) NOT NULL,
                 UserName VARCHAR(50) UNIQUE NOT NULL,
@@ -37,7 +37,7 @@ namespace Infrastructure.Repositories
             using var connection = _dbConnectionFactory.CreateConnection();
 
             const string sql = @"
-            INSERT INTO Users
+            INSERT INTO UsersNET
                 (FullName, UserName, Email, About, Country, PasswordHash, CreatedAt)
             VALUES 
                 (@FullName, @UserName, @Email, @About, @Country, @PasswordHash, @CreatedAt)
@@ -50,7 +50,7 @@ namespace Infrastructure.Repositories
         {
             using var connection = _dbConnectionFactory.CreateConnection();
             return await connection.QueryFirstOrDefaultAsync<User>(
-                "SELECT * FROM Users WHERE UserName = @username",
+                "SELECT * FROM UsersNET WHERE UserName = @username",
                 new { username });
         }
 
@@ -58,7 +58,7 @@ namespace Infrastructure.Repositories
         {
             using var connection = _dbConnectionFactory.CreateConnection();
             const string sql = @"
-            UPDATE Users SET
+            UPDATE UsersNET SET
                 FullName = @FullName,
                 Email = @Email,
                 About = @About,
@@ -74,7 +74,7 @@ namespace Infrastructure.Repositories
         {
             using var connection = _dbConnectionFactory.CreateConnection();
             return await connection.QueryFirstOrDefaultAsync<User>(
-                "SELECT * FROM Users WHERE Id = @id",
+                "SELECT * FROM UsersNET WHERE Id = @id",
                 new { id });
         }
     }

@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0
+
+WORKDIR /app
+
+# Copiar solo archivos esenciales primero para caching
+COPY *.sln .
+COPY Application/*.csproj Application/
+COPY Domain/*.csproj Domain/
+COPY Infrastructure/*.csproj Infrastructure/
+COPY WebAPI/*.csproj WebAPI/
+
+# Restaurar dependencias
+RUN dotnet restore
+
+# Instalar herramientas
+RUN dotnet tool install --global dotnet-watch
+
+# Variables de entorno
+ENV PATH="${PATH}:/root/.dotnet/tools"
+EXPOSE 8080 443
+
+# Especificar el proyecto principal explícitamente
+ENTRYPOINT ["dotnet", "watch", "run", "--project", "WebAPI", "--urls", "http://*:8080"]
