@@ -1,0 +1,12 @@
+# .dockerignore
+
+# Ignorar todo excepto la carpeta 'dotnet/LedgerSyncAPI'
+**/*
+!dotnet/LedgerSyncAPI/
+
+# Excluir archivos específicos dentro de 'dotnet/LedgerSyncAPI'
+dotnet/LedgerSyncAPI/**/*.user
+dotnet/LedgerSyncAPI/**/bin/
+dotnet/LedgerSyncAPI/**/obj/
+dotnet/LedgerSyncAPI/**/.dockerignore
+dotnet/LedgerSyncAPI/**/.git/
