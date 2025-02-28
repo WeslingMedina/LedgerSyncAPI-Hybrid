@@ -65,7 +65,8 @@ if (app.Environment.IsDevelopment())
     {
         options.
                 WithTitle("Ledger Sync API")
-                .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.HttpClient);
+                .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.HttpClient)
+                .AddServer("http://localhost:5000");
     }); //using scalar
 }
 
