@@ -15,9 +15,13 @@ RUN dotnet restore
 # Instalar herramientas
 RUN dotnet tool install --global dotnet-watch
 
+# Instalar depurador (vsdbg)
+RUN apt-get update && apt-get install -y unzip \
+    && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+
 # Variables de entorno
 ENV PATH="${PATH}:/root/.dotnet/tools"
-EXPOSE 8080 443
+EXPOSE 8080 443 5005 5006
 
-# Especificar el proyecto principal explícitamente
-ENTRYPOINT ["dotnet", "watch", "run", "--project", "WebAPI", "--urls", "http://*:8080"]
+# Especificar el proyecto principal explícitamente con depuración habilitada
+ENTRYPOINT ["dotnet", "watch", "run", "--project", "WebAPI", "--urls", "http://*:8080", "--launch-profile", "Development"]

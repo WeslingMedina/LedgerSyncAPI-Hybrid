@@ -8,9 +8,11 @@ namespace Application.DTOs
 {
     public class SigningRequest
     {
-        public string P12Url { get; set; } = string.Empty;
-        public string PinP12 { get; set; } = string.Empty;
-        public string InXml { get; set; } = string.Empty;
-        public string TipoDoc { get; set; } = string.Empty;
+        public required string Class { get; set; }
+        public required string Method { get; set; }
+        public required string P12Url { get; set; }
+        public required string InXml { get; set; }
+        public required string PinP12  { get; set; }
+        public required string DocType { get; set; }
     }
 }

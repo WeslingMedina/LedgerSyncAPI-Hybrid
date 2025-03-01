@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Application.Features.GenerateClave;
-using Application.Features.SignDocument;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +32,6 @@ builder.Services.AddHostedService<DatabaseInitializer>();
 // MediatR
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(UploadCertCommand).Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetClaveQueryHandler).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SignElectronicDocumentCommand).Assembly));
 
 
 // Autenticaci�n

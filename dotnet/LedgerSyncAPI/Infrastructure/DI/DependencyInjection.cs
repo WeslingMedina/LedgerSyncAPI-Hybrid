@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using FluentValidation;
 using Application.Features.GenerateXml;
+using System.Net.Http.Headers;
 
 namespace Infrastructure.DI
 {
@@ -36,8 +37,10 @@ namespace Infrastructure.DI
             services.AddValidatorsFromAssemblyContaining<GenerateXmlFeValidator>();
             services.AddScoped<GenerateXmlFeUseCase>();
 
-            services.AddScoped<IXmlSigner, XmlSigner>();
-            services.AddScoped<IXmlSignerService, XadesEpesSignerService>();
+            services.AddHttpClient<IXmlSignerService, XmlSignerService>(client => {
+                client.BaseAddress = new Uri("http://php-apache/");
+                client.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.43.0"); 
+            });
 
             services.AddHttpClient();
             services.AddSingleton<IApiClientFactory, ApiClientFactory>();

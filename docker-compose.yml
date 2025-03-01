@@ -47,6 +47,10 @@ services:
         volumes:
             - ./dotnet/LedgerSyncAPI:/app  # Asegurar misma estructura
             - ~/.nuget/packages:/root/.nuget/packages:ro  # Cache de paquetes
+            - /app/Infrastructure/obj
+            - /app/Infrastructure/bin
+            - /app/WebAPI/obj
+            - /app/WebAPI/bin
         environment:
             ASPNETCORE_ENVIRONMENT: "Development"
             DB_HOST: "mariadb"

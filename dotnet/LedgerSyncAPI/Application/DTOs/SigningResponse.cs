@@ -8,6 +8,11 @@ namespace Application.DTOs
 {
     public class SigningResponse
     {
-        public string XmlFirmado { get; set; } = string.Empty;
+        public Respuesta Resp { get; set; }
+
+        public class Respuesta
+        {
+            public string XmlFirmado { get; set; }
+        }
     }
 }

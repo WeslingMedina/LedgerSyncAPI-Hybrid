@@ -1,5 +1,4 @@
 ﻿using Application.DTOs;
-using Application.Features.SignDocument;
 using Application.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,30 +10,28 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class SigningController : Controller
     {
-        private readonly IMediator _mediator;
-        private readonly IFileRepository _fileRepository;
-        private readonly IFileStorage _fileStorage;
+        private readonly IXmlSignerService _signService;
+        private readonly ILogger<SigningController> _logger;
 
-        public SigningController(IMediator mediator, IFileRepository fileRepository, IFileStorage fileStorage)
+        public SigningController(IXmlSignerService signService, ILogger<SigningController> logger)
         {
-            _mediator = mediator;
-            _fileRepository = fileRepository;
-            _fileStorage = fileStorage;
+            _signService = signService;
+            _logger = logger;
         }
 
         [HttpPost("signFE")]
-        public async Task<IActionResult> SignDocument([FromBody] SignRequestDto request)
+        public async Task<IActionResult> SignDocument([FromBody] SigningRequest request)
         {
-            var command = new SignElectronicDocumentCommand
+            try
             {
-                P12Url = _fileStorage.GetFilePath(await _fileRepository.GetByDownloadCodeAsync(request.P12Url)),
-                P12Pin = request.P12Pin,
-                InXml = request.InXml,
-                DocumentType = request.DocumentType
-            };
-
-            var signedXml = await _mediator.Send(command);
-            return Ok(new { SignedXml = Convert.ToBase64String(Encoding.UTF8.GetBytes(signedXml)) });
+                var result = await _signService.SignDocument(request);
+                return Ok(result);
+            }
+            catch (ApplicationException ex)
+            {
+                _logger.LogError(ex, "Error signing document");
+                return StatusCode(500, new { error = ex.Message });
+            }
         }
     }
 }

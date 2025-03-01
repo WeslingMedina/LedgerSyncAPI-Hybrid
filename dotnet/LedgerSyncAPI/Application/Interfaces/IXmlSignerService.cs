@@ -10,6 +10,6 @@ namespace Application.Interfaces
 {
     public interface IXmlSignerService
     {
-        string SignXml(string P12Url, string pin, string xmlContent, DocumentType documentType);
+        Task<SigningResponse> SignDocument(SigningRequest request);
     }
 }

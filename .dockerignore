@@ -1,22 +1,8 @@
-# Exclude development artifacts
-**/.git/
-**/.github/
-**/.vs/
-**/.vscode/
-**/.DS_Store
-**/node_modules/
-
-# Exclude .NET build artifacts
-**/bin/
-**/obj/
-**/*.user
-
-# Don't exclude these directories needed by your PHP service
-!api/
-!www/
-!docker-php-apache/
-!recursos/
-
-# If you have specific large files in those directories you want to exclude
-api/**/*.log
-www/**/*.log
+# Ignorar archivos de proyectos específicos
+## .NET
+dotnet/**/bin/
+dotnet/**/obj/
+dotnet/**/*.user
+dotnet/**/*.suo
+dotnet/**/*.csproj.user
+dotnet/**/appsettings*.json
