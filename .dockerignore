@@ -1,12 +1,22 @@
-# .dockerignore
+# Exclude development artifacts
+**/.git/
+**/.github/
+**/.vs/
+**/.vscode/
+**/.DS_Store
+**/node_modules/
 
-# Ignorar todo excepto la carpeta 'dotnet/LedgerSyncAPI'
-**/*
-!dotnet/LedgerSyncAPI/
+# Exclude .NET build artifacts
+**/bin/
+**/obj/
+**/*.user
 
-# Excluir archivos específicos dentro de 'dotnet/LedgerSyncAPI'
-dotnet/LedgerSyncAPI/**/*.user
-dotnet/LedgerSyncAPI/**/bin/
-dotnet/LedgerSyncAPI/**/obj/
-dotnet/LedgerSyncAPI/**/.dockerignore
-dotnet/LedgerSyncAPI/**/.git/
+# Don't exclude these directories needed by your PHP service
+!api/
+!www/
+!docker-php-apache/
+!recursos/
+
+# If you have specific large files in those directories you want to exclude
+api/**/*.log
+www/**/*.log
