@@ -89,3 +89,7 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 
 #### Observations
 * ALTER TABLE files MODIFY COLUMN md5 VARCHAR(40);
+
+###docker
+delete cache docker builder prune
+delete container docker system prune -a
