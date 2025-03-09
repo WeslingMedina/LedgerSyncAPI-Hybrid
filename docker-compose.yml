@@ -46,7 +46,7 @@ services:
             - 5001:443
         volumes:
             - ./dotnet/LedgerSyncAPI:/app  # Asegurar misma estructura
-            - ~/.nuget/packages:/root/.nuget/packages:ro  # Cache de paquetes
+            - ~/.nuget/packages:/root/.nuget/packages:rw  # Cache de paquetes
             - /app/Infrastructure/obj
             - /app/Infrastructure/bin
             - /app/WebAPI/obj

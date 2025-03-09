@@ -93,3 +93,21 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 ###docker
 delete cache docker builder prune
 delete container docker system prune -a
+
+
+1️⃣ Stop all running containers
+docker stop $(docker ps -q)
+2️⃣ Remove all containers
+docker rm $(docker ps -aq)
+3️⃣ Remove all images
+docker rmi $(docker images -q) -f
+4️⃣ Remove all volumes
+docker volume rm $(docker volume ls -q)
+5️⃣ Remove all networks (except default ones)
+docker network rm $(docker network ls -q)
+6️⃣ Clear all build cache
+docker builder prune -a -f
+7️⃣ Completely reset Docker (dangerous, use with caution!)
+This will remove everything, including configuration and logs:
+
+docker system prune -a --volumes -f
